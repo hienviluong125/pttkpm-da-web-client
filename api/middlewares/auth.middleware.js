@@ -11,7 +11,7 @@ function authenticateToken(req, res, next) {
 
     if (err) return res.sendStatus(403)
 
-    req.user = { id: user.id, email: user.email }
+    req.user = user;
     next()
   });
 }
