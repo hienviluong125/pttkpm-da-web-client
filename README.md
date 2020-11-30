@@ -1,4 +1,13 @@
 # pttkpm-da-web
+# ---------------------------------------------
+# Client app
+
+# how to run on local development ?
+
+# npm run serve
+
+# ----------------------------------------------
+# Backend api
 # create an '.env' file on root directory please check env.sample file to get correct format
 - DB_USER=postgres
 - DB_PASSWORD=123456
