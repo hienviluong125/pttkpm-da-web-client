@@ -10,3 +10,5 @@ app.use('/auth', require('./controllers/auth.controller.js')(router));
 app.use('/api/user', require('./controllers/user.controller.js')(router));
 
 app.listen(port, function() { console.log(`Listen to port ${port}`) });
+
+module.exports = app;
