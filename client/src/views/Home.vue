@@ -1,98 +1,72 @@
 <template>
-  <b-container class="mt-3">
-    <b-row>
-      <b-col lg="2" md="12" sm="12" xs="12">
-        <div class="find-workspace-form bg-white rounded p-3 m-auto">
-          <h3>
-            Reimagine your workspace
-          </h3>
-          <p class="mt-4">
-            Whether you’re an established enterprise or a growing startup, discover flexible spaces and solutions to move your business forward.
-          </p>
-          <b-form>
-            <b-form-group id="input-group-3" label="Find workspace in" label-for="location-input">
-              <b-form-select
-                id="location-input"
-                v-model="findLocationForm.location"
-                :options="locations"
-                required
-              ></b-form-select>
-            </b-form-group>
-
-            <b-button type="submit" class="w-100" variant="primary">Start</b-button>
-          </b-form>
+  <div>
+    <b-container>
+      <BannerCarousel />
+    </b-container>
+    <b-container>
+      <LandingPageSection imagePath="image/workspaces/workspace0.jpg">
+        <div class="d-flex align-items-center landing-page-section">
+          <div>
+            <h3 class="font-weight-bold">Welcome to the workplace of tomorrow</h3>
+            <p class="mt-3">
+              From spaces that prioritize your health and safety to unmatched flexibility, WeWork is reimagining the workplace to give you the confidence to move forward through COVID-19 and beyond.
+            </p>
+            <router-link to="/about" class="text-decoration-none">
+              <div class="d-flex align-items-center">
+                <span class="mr-1">Learn more</span>
+                <b-icon icon="arrow-right" font-scale="1" variant="primary" />
+              </div>
+            </router-link>
+          </div>
         </div>
-      </b-col>
-      <b-col lg="10" md="12" sm="12" xs="12">
-        <div>
-          <b-carousel
-            v-model="slide"
-            :interval="4000"
-            controls
-            img-width="1024"
-            img-height="480"
-            @sliding-start="onSlideStart"
-            @sliding-end="onSlideEnd"
-          >
-            <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=52" />
-            <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=54" />
-            <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=58"></b-carousel-slide>
-            <b-carousel-slide>
-              <template #img>
-                <img
-                  class="d-block img-fluid w-100"
-                  width="1024"
-                  height="480"
-                  src="https://picsum.photos/1024/480/?image=55"
-                  alt="image slot"
-                >
-              </template>
-            </b-carousel-slide>
-          </b-carousel>
+      </LandingPageSection>
+      <LandingPageSection imagePath="image/workspaces/workspace1.jpg">
+        <div class="d-flex align-items-center landing-page-section h-100">
+          <div>
+            <h3 class="font-weight-bold">Creating a healthier workplace</h3>
+            <p class="mt-3">
+              In response to COVID-19, we are enhancing our health and safety standards for your clients’ peace of mind.
+            </p>
+            <router-link to="/about" class="text-decoration-none">
+              <div class="d-flex align-items-center">
+                <span class="mr-1">Learn more</span>
+                <b-icon icon="arrow-right" font-scale="1" variant="primary" />
+              </div>
+            </router-link>
+          </div>
         </div>
-      </b-col>
-    </b-row>
-  </b-container>
+      </LandingPageSection>
+      <NavigateSection />
+    </b-container>
+    <b-container fluid>
+      <MapSection />
+    </b-container>
+  </div>
 </template>
 
-
-
 <script>
+import BannerCarousel from './../components/BannerCarousel';
+import LandingPageSection from './../components/LandingPageSection';
+import NavigateSection from './../components/NavigateSection';
+import MapSection from './../components/MapSection';
+
 export default {
   name: 'Home',
+  components: {
+    BannerCarousel,
+    LandingPageSection,
+    NavigateSection,
+    MapSection
+  },
   data() {
     return {
-      findLocationForm: {
-        location: 'TPHCM'
-      },
-      locations: ['TPHCM', 'HN', 'ĐN']
     }
   }
 }
 </script>
 
 <style scoped>
-  .find-workspace-form {
-    width: 300px;
-    min-width: 300px;
-    height: auto;
-    top: 25px;
-    z-index: 2;
+  .h-100 {
+    height: 100%;
   }
-
-  /* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
-  @media (min-width: 576px) {
-    .find-workspace-form {
-      position: relative;
-      min-width: 400px;
-    }
-  }
-
-  @media (min-width: 992px) {
-    .find-workspace-form {
-      position: absolute;
-      min-width: 300px;
-    }
-  }
-
 </style>
