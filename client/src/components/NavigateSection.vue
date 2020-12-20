@@ -1,7 +1,7 @@
 <template>
   <b-row class="mt-5">
     <b-col lg="8" md="12" sm="12" xs="12">
-      <div class="section-info d-flex align-items-center h-100 p-3 pr-lg-5">
+      <div class="section-info d-flex align-items-center h-100 p-3 pr-lg-5 mr-lg-5">
         <div>
           <h2 class="font-weight-bold">Helping you navigate your new normal</h2>
           <div class="d-flex justify-content-around mt-4">

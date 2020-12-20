@@ -5,7 +5,7 @@
       <h3 class="mt-4">Workspace where and how you need it</h3>
       <p class="mt-4">With over 800 locations worldwide, WeWork offers you workspace where and how you need it, whether your goal is to be closer to home, empower your team in different cities, or have a go-to private space where you can actually focus.
       </p>
-      <router-link to="/about" class="text-decoration-none mt-4">
+      <router-link :to="linkTo" class="text-decoration-none mt-4">
         <div class="d-flex align-items-center">
           <span class="mr-1">Explore</span>
           <b-icon icon="arrow-right" font-scale="1" variant="primary" />
@@ -20,7 +20,10 @@
 
 <script>
 export default {
-  name: 'MapSection'
+  name: 'MapSection',
+  props: {
+    linkTo: String
+  }
 }
 </script>
 

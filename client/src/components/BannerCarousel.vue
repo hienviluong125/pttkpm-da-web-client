@@ -25,13 +25,10 @@
     <b-col lg="10" md="12" sm="12" xs="12">
       <div>
         <b-carousel
-          v-model="slide"
           :interval="0"
           controls
           img-width="920"
           img-height="520"
-          @sliding-start="onSlideStart"
-          @sliding-end="onSlideEnd"
         >
           <b-carousel-slide img-src="image/banners/banner1.jpg" />
           <b-carousel-slide img-src="image/banners/banner2.jpg" />

@@ -39,7 +39,11 @@
       <NavigateSection />
     </b-container>
     <b-container fluid>
-      <MapSection />
+      <MapSection linkTo="/about" />
+    </b-container>
+    <b-container>
+      <SponsorSection />
+      <BlogSection />
     </b-container>
   </div>
 </template>
@@ -49,6 +53,8 @@ import BannerCarousel from './../components/BannerCarousel';
 import LandingPageSection from './../components/LandingPageSection';
 import NavigateSection from './../components/NavigateSection';
 import MapSection from './../components/MapSection';
+import SponsorSection from './../components/SponsorSection';
+import BlogSection from './../components/BlogSection';
 
 export default {
   name: 'Home',
@@ -56,7 +62,9 @@ export default {
     BannerCarousel,
     LandingPageSection,
     NavigateSection,
-    MapSection
+    MapSection,
+    SponsorSection,
+    BlogSection
   },
   data() {
     return {
