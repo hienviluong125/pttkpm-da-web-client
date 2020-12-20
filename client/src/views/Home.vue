@@ -41,7 +41,7 @@
     <b-container fluid>
       <MapSection linkTo="/about" />
     </b-container>
-    <b-container>
+    <b-container class="mb-5">
       <SponsorSection />
       <BlogSection />
     </b-container>
@@ -72,9 +72,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-  .h-100 {
-    height: 100%;
-  }
-</style>
