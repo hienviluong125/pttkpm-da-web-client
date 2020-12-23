@@ -1,26 +1,17 @@
 <template>
-  <div id="app">
-    <Header v-if="currentPath() !== '/login'" />
+  <DynamicLayout>
     <div class="h-auto min-vh-100">
       <router-view />
-    </div>
-    <Footer v-if="currentPath() !== '/login'" />
-  </div>
+    </div> -->
+  </DynamicLayout>
 </template>
 
 <script>
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import DynamicLayout from './components/DynamicLayout';
 
 export default {
   components: {
-    Header,
-    Footer,
-  },
-  methods: {
-    currentPath() {
-      return this.$router.history.current.path;
-    }
+    DynamicLayout
   }
-};
+}
 </script>

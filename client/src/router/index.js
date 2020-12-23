@@ -22,6 +22,31 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: () => import('../views/Login.vue')
+  },
+  {
+    path: '/sign_up',
+    name: 'Signup',
+    component: () => import('../views/Signup.vue')
+  },
+  {
+    path: '/workspaces',
+    name: 'Workspaces',
+    component: () => import('../views/Workspaces.vue')
+  },
+  {
+    path: '/locations',
+    name: 'Locations',
+    component: () => import('../views/Locations.vue')
+  },
+  {
+    path: '/ideas',
+    name: 'Ideas',
+    component: () => import('../views/Ideas.vue')
+  },
+  {
+    path: '/Enterprise',
+    name: 'Enterprise',
+    component: () => import('../views/Enterprise.vue')
   }
 ]
 

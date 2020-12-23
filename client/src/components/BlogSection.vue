@@ -10,7 +10,7 @@
       :key="index"
     >
       <div v-if="index == 0">
-        <div class="mt-4 active-blog d-lg-flex d-md-none d-sm-done d-xs-none">
+        <div class="mt-4 active-blog d-lg-flex d-none">
           <img class="w-50 rounded-left blog-image" :src="blog.image" />
           <div class="info w-50 rounded-right border border-left-0 p-5">
             <router-link :to="blog.link">

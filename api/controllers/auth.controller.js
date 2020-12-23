@@ -3,6 +3,33 @@ const User = require('./../models/index').User;
 const bcrypt = require('bcrypt');
 
 module.exports = function (router) {
+  /**
+   * @api {post} /auth/sign_up Request User Registration
+   * @apiName Sign up
+   * @apiGroup User
+   *
+   * @apiParamExample
+   * {
+   *    "user": {
+   *      "email": "hello@gmail.com",
+   *      "password": "helloworld"
+   *    }
+   *  }
+   *
+   * @apiSuccessExample
+   * {
+   *   "success": true,
+   *   "message": "Account registered successfully",
+   *   "token": "tokenASDASDASDASDASDASD"
+   * }
+   *
+   * @apiFailureExample
+   * {
+   *   "success": false,
+   *   "message": "Email already be taken!"
+   * }
+   *
+   */
   router.post('/sign_up', async function(req,res) {
     const userParams = req.body['user'];
     let user = await User.findOne({
@@ -28,6 +55,33 @@ module.exports = function (router) {
     res.json({ success: true, message: 'Account registered successfully', token: token });
   });
 
+  /**
+   * @api {post} /auth/login Request User Authentication
+   * @apiName Sign up
+   * @apiGroup User
+   *
+   * @apiParamExample
+   * {
+   *    "user": {
+   *      "email": "hello@gmail.com",
+   *      "password": "helloworld"
+   *    }
+   *  }
+   *
+   * @apiSuccessExample
+   * {
+   *   "success": true,
+   *   "message": "Account logged successfully",
+   *   "token": "tokenASDASDASDASDASDASD"
+   * }
+   *
+   * @apiFailureExample
+   * {
+   *   "success": false,
+   *   "message": "Password doesn't match"
+   * }
+   *
+   */
   router.post('/login', async function (req, res) {
     const userParams = req.body['user'];
 
@@ -44,7 +98,7 @@ module.exports = function (router) {
     if(!isMatch) return res.json({ success: false, message: "Password doesn't match" });
 
     const token = generateJWT({ id: user.id, email: user.email, role: user.role });
-    res.json({ success: true, message: 'Account registered successfully', token: token });
+    res.json({ success: true, message: 'Account logged successfully', token: token });
   });
 
   return router;
