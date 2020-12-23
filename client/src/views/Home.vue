@@ -5,7 +5,7 @@
     </b-container>
     <b-container>
       <LandingPageSection imagePath="image/workspaces/workspace0.jpg">
-        <div class="d-flex align-items-center landing-page-section">
+        <div class="d-flex align-items-center landing-page-section mt-5">
           <div>
             <h3 class="font-weight-bold">Welcome to the workplace of tomorrow</h3>
             <p class="mt-3">
@@ -21,7 +21,7 @@
         </div>
       </LandingPageSection>
       <LandingPageSection imagePath="image/workspaces/workspace1.jpg">
-        <div class="d-flex align-items-center landing-page-section h-100">
+        <div class="d-flex align-items-center landing-page-section mt-5">
           <div>
             <h3 class="font-weight-bold">Creating a healthier workplace</h3>
             <p class="mt-3">

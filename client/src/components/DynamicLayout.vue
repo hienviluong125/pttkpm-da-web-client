@@ -7,7 +7,7 @@
     <!-- End authentication page layout  -->
 
     <!-- Client page layout  -->
-    <div v-if="['/', '/locations', '/workspaces', '/ideas', '/enterprise'].includes(currentPath())" id="app">
+    <div v-if="['/', '/locations', '/ideas', '/about'].includes(currentPath())" id="app">
       <Header />
       <slot></slot>
       <Footer />

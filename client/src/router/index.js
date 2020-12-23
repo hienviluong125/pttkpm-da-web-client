@@ -29,11 +29,6 @@ const routes = [
     component: () => import('../views/Signup.vue')
   },
   {
-    path: '/workspaces',
-    name: 'Workspaces',
-    component: () => import('../views/Workspaces.vue')
-  },
-  {
     path: '/locations',
     name: 'Locations',
     component: () => import('../views/Locations.vue')
@@ -44,9 +39,9 @@ const routes = [
     component: () => import('../views/Ideas.vue')
   },
   {
-    path: '/Enterprise',
-    name: 'Enterprise',
-    component: () => import('../views/Enterprise.vue')
+    path: '/about',
+    name: 'About',
+    component: () => import('../views/About.vue')
   }
 ]
 

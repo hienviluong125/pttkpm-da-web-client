@@ -12,7 +12,7 @@
           <b-form-group id="input-group-3" label="Find workspace in" label-for="location-input">
             <b-form-select
               id="location-input"
-              v-model="findLocationForm.location"
+              v-model="selected"
               :options="locations"
               required
             ></b-form-select>
@@ -41,15 +41,24 @@
 </template>
 
 <script>
+import tinh_tp from './../utils/tinh_tp.json';
 export default {
   name: 'BannerCarousel',
   data() {
     return {
-      findLocationForm: {
-        location: 'TPHCM'
-      },
-      locations: ['TPHCM', 'HN', 'ĐN']
+      selected: null,
+      locations: []
     }
+  },
+  mounted() {
+    this.locations = Object.keys(tinh_tp).map(code => {
+      return {
+        value: tinh_tp[code],
+        text: tinh_tp[code].name
+      }
+    });
+
+    this.selected = tinh_tp["79"]
   }
 }
 </script>

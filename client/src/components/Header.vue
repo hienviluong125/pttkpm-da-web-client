@@ -10,12 +10,6 @@
           <b-nav-item class="ml-4" to="/locations">
             <div class="text-dark">Locations</div>
           </b-nav-item>
-          <b-nav-item class="ml-4" to="/workspaces">
-            <div class="text-dark">Workspaces</div>
-          </b-nav-item>
-          <b-nav-item class="ml-4" to="/enterprise">
-            <div class="text-dark">Enterprise</div>
-          </b-nav-item>
           <b-nav-item class="ml-4" to="/ideas">
             <div class="text-dark">Ideas</div>
           </b-nav-item>
@@ -23,7 +17,7 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-item class="ml-4" to="/contact">
+          <b-nav-item class="ml-4" to="/about">
             <div class="text-dark">Contact us</div>
           </b-nav-item>
 
