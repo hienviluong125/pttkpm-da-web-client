@@ -14,7 +14,7 @@
                 <b-icon icon="card-text" font-scale="0.8"></b-icon>
               </b-input-group-text>
             </template>
-            <b-form-input placeholder="yours@example.com"></b-form-input>
+            <b-form-input placeholder="yours@example.com" name="username" v-model="$v.form.username.$model" :state="validateState('username')" aria-describedby="input-1-live-feedback"></b-form-input>
           </b-input-group>
           <b-input-group class="mt-2">
             <template #prepend>
@@ -27,11 +27,13 @@
                 <b-icon :icon="isShowPassword ? 'eye-slash' : 'eye'" font-scale="0.8" class="cursor-pointer" @click="toggleShowPassword"></b-icon>
               </b-input-group-text>
             </template>
-            <b-form-input placeholder="your password" :type="isShowPassword ? 'text':'password'"></b-form-input>
+
+            <b-form-input placeholder="your password" :type="isShowPassword ? 'text':'password'" name="password" v-model="$v.form.password.$model" :state="validateState('password')" aria-describedby="password-feedback" v-on:keyup.enter="onSubmit"></b-form-input>
+
           </b-input-group>
         </blockquote>
         <template #footer>
-          <div class="footer-wrp cursor-pointer" @click="handleClickLoginBtn">
+          <div class="footer-wrp cursor-pointer" @click="onSubmit">
             <div class="text-center text-light text-uppercase login-label">log in ></div>
           </div>
         </template>
@@ -42,20 +44,71 @@
 </template>
 
 <script>
+import {
+  validationMixin
+} from "vuelidate";
+import {
+  required,
+} from "vuelidate/lib/validators";
+
 export default {
   name: 'Login',
+  mixins: [validationMixin],
   data() {
     return {
-      isShowPassword: false
+      isShowPassword: false,
+      form: {
+        username: null,
+        password: null
+      }
+    }
+  },
+  validations: {
+    form: {
+      username: {
+        required
+      },
+      password: {
+        required,
+      }
     }
   },
   methods: {
     toggleShowPassword() {
       this.isShowPassword = !this.isShowPassword;
     },
-    handleClickLoginBtn() {
-      console.log("zzz")
-    }
+    onSubmit() {
+      this.$v.form.$touch();
+      if (this.$v.form.$anyError) {
+        return;
+      }
+
+      const {
+        username,
+        password
+      } = this.form;
+
+      alert(JSON.stringify({
+        username,
+        password
+      }))
+      this.form = {
+        username: null,
+        password: null
+      };
+
+      this.$nextTick(() => {
+        this.$v.$reset();
+      });
+
+    },
+    validateState(name) {
+      const {
+        $dirty,
+        $error
+      } = this.$v.form[name];
+      return $dirty ? !$error : null;
+    },
   }
 
 }
