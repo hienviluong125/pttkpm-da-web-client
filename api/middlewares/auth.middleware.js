@@ -16,6 +16,20 @@ function authenticateToken(req, res, next) {
   });
 }
 
+function authorization(roles) {
+  return (req, res, next) => {
+    const currentUser = req.user
+    if (currentUser && typeof currentUser !== 'undefined') {
+      if (roles.includes(currentUser.role)) {
+        return next();
+      } else {
+        return res.sendStatus(401)
+      }
+    }
+  }
+}
+
 module.exports = {
-  authenticateToken
+  authenticateToken,
+  authorization
 }
