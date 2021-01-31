@@ -34,5 +34,5 @@
 
 # how to create fake datas
 
-- node seed.js ( make sure server is not running )
+- node seed.js ( make sure server is not running )  
 note: `node seed.js` cmd will delete all existing records and re-generate new records
