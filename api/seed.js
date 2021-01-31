@@ -4,6 +4,7 @@ const faker = require('faker');
 const bcrypt = require('bcrypt');
 
 const { User, Workspace, WorkspaceType, Service, WorkspaceService, Order, Blog, Attachment } = dbModel;
+const { Sequelize } = require('sequelize');
 const role_enums = ['admin', 'member', 'partner']
 const rdGender = ['male', 'female'];
 
@@ -42,16 +43,17 @@ const seedUsers = async ({ seedAdmin }) => {
 }
 
 const seedWorkspaceType = async () => {
-  await WorkspaceType.create({ id: 1, name: 'Restaurant', type: 'restaurant' })
-  await WorkspaceType.create({ id: 2, name: 'Beer club', type: 'beer-club' })
-  await WorkspaceType.create({ id: 3, name: 'Co workspace', type: 'co-workspace' })
-  await WorkspaceType.create({ id: 4, name: 'Event', type: 'event' })
-  await WorkspaceType.create({ id: 5, name: 'Office', type: 'Office' })
-  await WorkspaceType.create({ id: 6, name: 'Studio', type: 'studio' })
-  await WorkspaceType.create({ id: 7, name: 'Gaming house', type: 'gaming-house' })
+  await WorkspaceType.create({ name: 'Restaurant', type: 'restaurant' })
+  await WorkspaceType.create({ name: 'Beer club', type: 'beer-club' })
+  await WorkspaceType.create({ name: 'Co workspace', type: 'co-workspace' })
+  await WorkspaceType.create({ name: 'Event', type: 'event' })
+  await WorkspaceType.create({ name: 'Office', type: 'Office' })
+  await WorkspaceType.create({ name: 'Studio', type: 'studio' })
+  await WorkspaceType.create({ name: 'Gaming house', type: 'gaming-house' })
 }
 
 const seedWorkspaceWithService = async () => {
+  let wpt = await WorkspaceType.findAll({ order: Sequelize.literal('random()'), limit: 5 });
   let pwd = await bcrypt.hash('12345678', 10);
   for (let i = 0; i < 5; i++) {
     let user = await User.create({
@@ -67,10 +69,11 @@ const seedWorkspaceWithService = async () => {
     });
 
     for (let j = 0; j < 3; j++) {
+      let randomWorkspaceTypeId = wpt[faker.random.number(1, 5)].id;
       let rdNumber = faker.random.number(5, 15)
       let workspace = await Workspace.create({
         name: faker.name.findName(),
-        workspace_type_id: faker.random.number(1, 7),
+        workspace_type_id: randomWorkspaceTypeId,
         address: faker.address.streetAddress(),
         country: faker.address.country(),
         lat: faker.address.latitude(),
@@ -112,7 +115,8 @@ const seedWorkspaceWithService = async () => {
 
   await seedWorkspaceType()
   await seedUsers({ seedAdmin: true });
-  await seedWorkspaceWithService()
+  await seedWorkspaceWithService();
+
 
   process.exit()
 })();
