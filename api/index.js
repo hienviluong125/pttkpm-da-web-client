@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 app.use('/auth', require('./controllers/auth.controller.js')(router));
 
 // Dashboard controller
+app.use('/api/dashboard/workspace', require('./controllers/dashboard/workspace.controller.js')(router));
 app.use('/api/dashboard/workspace_type', require('./controllers/dashboard/workspaceType.controller.js')(router));
 
 // Client controller
