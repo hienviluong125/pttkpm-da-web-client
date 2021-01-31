@@ -23,6 +23,10 @@ module.exports = {
       user_id: {
         type: Sequelize.INTEGER
       },
+      status: {
+        type: Sequelize.ENUM,
+        values: ['unpaid', 'pending', 'paid', 'rejected']
+      },
       workspace_id: {
         type: Sequelize.INTEGER
       },

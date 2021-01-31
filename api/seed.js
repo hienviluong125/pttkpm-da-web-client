@@ -24,7 +24,7 @@ const seedUsers = async ({ seedAdmin }) => {
     });
   }
 
-  let n = 10;
+  let n = 5;
   for (let i = 0; i < n; i++) {
     await User.create({
       address: faker.address.streetAddress(),
@@ -104,6 +104,67 @@ const seedWorkspaceWithService = async () => {
   }
 }
 
+const seedBlog = async () => {
+  let pwd = await bcrypt.hash('12345678', 10);
+  for (let i = 0; i < 5; i++) {
+    let user = await User.create({
+      address: faker.address.streetAddress(),
+      phone: faker.phone.phoneNumber(),
+      first_name: faker.name.firstName(),
+      last_name: faker.name.lastName(),
+      email: faker.internet.email().toLowerCase(),
+      gender: rdGender[faker.random.number(1)],
+      username: faker.internet.userName(),
+      password: pwd
+    });
+
+    for (let j = 0; j < 5; j++) {
+      await Blog.create({
+        title: faker.lorem.sentence(),
+        short_description: faker.lorem.sentence(),
+        content: faker.lorem.sentences(10),
+        user_id: user.id
+      })
+    }
+
+  }
+}
+
+
+const seedOrder = async () => {
+  let wp = await Workspace.findAll({ order: Sequelize.literal('random()'), limit: 5 });
+  let pwd = await bcrypt.hash('12345678', 10);
+  let rdStatus = ['unpaid', 'pending', 'paid', 'rejected'];
+
+  for (let i = 0; i < 5; i++) {
+    let user = await User.create({
+      address: faker.address.streetAddress(),
+      phone: faker.phone.phoneNumber(),
+      first_name: faker.name.firstName(),
+      last_name: faker.name.lastName(),
+      email: faker.internet.email().toLowerCase(),
+      gender: rdGender[faker.random.number(1)],
+      username: faker.internet.userName(),
+      password: pwd,
+      role: 'member',
+    });
+
+    const randomWp = wp[faker.random.number(1, 5)];
+    for (let j = 0; j < 5; j++) {
+      const order = await Order.create({
+        capacity: randomWp.min_capacity + 1,
+        note: faker.lorem.sentence(),
+        date: faker.date.recent(),
+        amount: faker.commerce.price(),
+        user_id: user.id,
+        workspace_id: randomWp.id,
+        status: rdStatus[faker.random.number(0, 3)],
+      })
+    }
+
+  }
+}
+
 (async function () {
   await User.destroy({ where: {} });
   await Workspace.destroy({ where: {} });
@@ -116,7 +177,8 @@ const seedWorkspaceWithService = async () => {
   await seedWorkspaceType()
   await seedUsers({ seedAdmin: true });
   await seedWorkspaceWithService();
-
+  await seedOrder();
+  await seedBlog();
 
   process.exit()
 })();
