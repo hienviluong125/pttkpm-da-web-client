@@ -21,7 +21,11 @@ module.exports = (sequelize, DataTypes) => {
     date: DataTypes.DATE,
     amount: DataTypes.DECIMAL,
     user_id: DataTypes.INTEGER,
-    workspace_id: DataTypes.INTEGER
+    workspace_id: DataTypes.INTEGER,
+    status: {
+      type: DataTypes.ENUM,
+      values: ['unpaid', 'pending', 'paid', 'rejected']
+    }
   }, {
     sequelize,
     modelName: 'Order',
