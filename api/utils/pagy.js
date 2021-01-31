@@ -13,7 +13,8 @@ module.exports = async function ({
     limit: limit,
     offset: offset,
     include: include,
-    order: order
+    order: order,
+    distinct: true
   });
 
   const count = queryRs.count;
