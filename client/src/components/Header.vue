@@ -56,14 +56,20 @@ export default {
     };
   },
   mounted() {
-    axios.get("/api/user/profile").then((res) => {
-      this.currentUser = res.data.user;
-    });
+    console.log({ z: this.currentPath() });
+    if (["/", "/locations", "/ideas", "/about"].includes(this.currentPath())) {
+      axios.get("/api/user/profile").then((res) => {
+        this.currentUser = res.data.user;
+      });
+    }
   },
   methods: {
     handleLogout() {
       clearAllTokens();
       this.$router.push("/login");
+    },
+    currentPath() {
+      return `/${window.location.hash.split("/")[1]}`;
     },
   },
 };
