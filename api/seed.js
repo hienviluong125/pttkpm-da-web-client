@@ -149,8 +149,9 @@ const seedOrder = async () => {
       role: 'member',
     });
 
-    const randomWp = wp[faker.random.number(1, 5)];
+
     for (let j = 0; j < 5; j++) {
+      const randomWp = wp[faker.random.number(1, 5)];
       const order = await Order.create({
         capacity: randomWp.min_capacity + 1,
         note: faker.lorem.sentence(),
@@ -158,7 +159,7 @@ const seedOrder = async () => {
         amount: faker.commerce.price(),
         user_id: user.id,
         workspace_id: randomWp.id,
-        status: rdStatus[faker.random.number(0, 3)],
+        status: rdStatus[faker.random.number(3)],
       })
     }
 
