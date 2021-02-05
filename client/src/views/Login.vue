@@ -115,6 +115,7 @@ export default {
         })
         .then((res) => {
           saveToken(res.data.token);
+          this.$emit("LOGIN_SUCCESS");
           this.$router.push("/");
         });
 
