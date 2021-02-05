@@ -14,24 +14,16 @@ app.use(bodyParser.json());
 app.use(cors(corsOptions));
 
 // Auth controller
-app.use("/auth", require("./controllers/auth.controller.js")(router));
+app.use("/auth", require("./controllers/auth.controller.js"));
 
 // Dashboard controller
-app.use(
-  "/api/dashboard/workspace",
-  require("./controllers/dashboard/workspace.controller.js")(router)
-);
-app.use(
-  "/api/dashboard/workspace_type",
-  require("./controllers/dashboard/workspaceType.controller.js")(router)
-);
+app.use('/api/dashboard/blog', require('./controllers/dashboard/blog.controller.js'));
+app.use('/api/dashboard/workspace', require('./controllers/dashboard/workspace.controller.js'));
+app.use('/api/dashboard/workspace_type', require('./controllers/dashboard/workspaceType.controller.js'));
 
 // Client controller
-app.use("/api/user", require("./controllers/user.controller.js")(router));
-app.use(
-  "/api/workspace",
-  require("./controllers/workspace.controller.js")(router)
-);
+app.use("/api/user", require("./controllers/user.controller.js"));
+app.use("/api/workspace", require("./controllers/workspace.controller.js"));
 
 app.listen(port, function () {
   console.log(`Listen to port ${port}`);
