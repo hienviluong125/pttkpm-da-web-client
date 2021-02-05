@@ -7,7 +7,10 @@
     <!-- End authentication page layout  -->
 
     <!-- Client page layout  -->
-    <div v-if="['/', '/locations', '/ideas', '/about'].includes(currentPath())" id="app">
+    <div
+      v-if="['/', '/locations', '/ideas', '/about'].includes(currentPath())"
+      id="app"
+    >
       <Header />
       <slot></slot>
       <Footer />
@@ -21,14 +24,15 @@ import Header from "./Header";
 import Footer from "./Footer";
 
 export default {
-  name: 'DynamicLayout',
+  name: "DynamicLayout",
   components: {
-    Header, Footer
+    Header,
+    Footer,
   },
   methods: {
     currentPath() {
-      return this.$router.history.current.path;
-    }
-  }
-}
+      return `/${window.location.hash.split("/")[1]}`;
+    },
+  },
+};
 </script>

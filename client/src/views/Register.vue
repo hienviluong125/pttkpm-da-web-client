@@ -24,6 +24,7 @@
                 aria-describedby="input-1-live-feedback"
               ></b-form-input>
             </b-input-group>
+
             <b-input-group class="mt-2">
               <template #prepend>
                 <b-input-group-text>
@@ -51,17 +52,27 @@
                 v-on:keyup.enter="onSubmit"
               ></b-form-input>
             </b-input-group>
+
+            <b-form-radio-group
+              id="radio-group-1"
+              v-model="curRole"
+              :options="roleOptions"
+              name="radio-options"
+              size="sm"
+              class="mt-3"
+            ></b-form-radio-group>
           </blockquote>
           <template #footer>
-            <div class="footer-wrp cursor-pointer" @click="onSubmit">
+            <div class="footer-wrp cursor-pointer">
               <div
                 class="text-center text-light text-uppercase login-label fw-bold"
+                @click="onSubmit"
               >
-                log in
+                Register
               </div>
-              <router-link to="/sign_up" class="text-decoration-none">
+              <router-link to="/login" class="text-decoration-none">
                 <div class=" mt-3 text-center w-100 fw-lighter sub-title">
-                  Not Registed ?
+                  Already have an account ?
                 </div>
               </router-link>
             </div>
@@ -74,10 +85,9 @@
 
 <script>
 import { validationMixin } from "vuelidate";
-import { required } from "vuelidate/lib/validators";
+import { required, email, minLength } from "vuelidate/lib/validators";
 
 import axios from "../utils/axiosHelper";
-import { saveToken } from "../libs/token";
 
 export default {
   name: "Login",
@@ -89,15 +99,22 @@ export default {
         username: null,
         password: null,
       },
+      curRole: "member",
+      roleOptions: [
+        { text: "Partner", value: "partner" },
+        { text: "Member", value: "member" },
+      ],
     };
   },
   validations: {
     form: {
       username: {
         required,
+        email,
       },
       password: {
         required,
+        minLength: minLength(6),
       },
     },
   },
@@ -114,15 +131,15 @@ export default {
       const { username, password } = this.form;
 
       axios
-        .post("/auth/login", {
+        .post("/auth/sign_up", {
           user: {
             email: username,
             password,
+            role: this.curRole,
           },
         })
-        .then((res) => {
-          saveToken(res.data.token);
-          this.$router.push("/");
+        .then(() => {
+          this.$router.push("/login");
         });
 
       this.resetForm();
@@ -141,19 +158,6 @@ export default {
         this.$v.$reset();
       });
     },
-  },
-  beforeRouteEnter(_, from, next) {
-    if (from.path == "/sign_up") {
-      return next((self) => {
-        self.$bvToast.toast("Register successfully!", {
-          title: `Notify`,
-          variant: "success",
-          solid: true,
-        });
-      });
-    }
-
-    next();
   },
 };
 </script>
