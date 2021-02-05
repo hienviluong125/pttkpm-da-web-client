@@ -23,6 +23,7 @@
 
 - npm install
 - npm install --save-dev sequelize-cli
+- npx sequelize-cli db:drop ( if you want to clear previous database )
 - npx sequelize-cli db:create
 - npx sequelize-cli db:migrate
 
@@ -30,3 +31,8 @@
 
 - npm run start
 - visit localhost:3000
+
+# how to create fake datas
+
+- node seed.js ( make sure server is not running )  
+note: `node seed.js` cmd will delete all existing records and re-generate new records

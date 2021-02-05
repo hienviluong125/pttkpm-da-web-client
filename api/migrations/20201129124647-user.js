@@ -27,7 +27,7 @@ module.exports = {
       },
       role: {
         type: Sequelize.ENUM,
-        values: ['admin', 'member']
+        values: ['admin', 'member', 'partner']
       },
       phone: {
         type: Sequelize.STRING
