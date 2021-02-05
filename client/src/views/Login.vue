@@ -1,77 +1,98 @@
 <template>
-<b-container fluid>
-  <b-row class="min-vh-100" align-h="center" align-v="center">
-    <b-col cols="12" sm="4" xl="3">
-      <b-card header="Quote" class="login-wrp" footer-bg-variant="primary">
-        <template #header>
-          <h2 class="text-center font-weight-bold">ZeroBugs</h2>
-          <div class="text-center">Member Web</div>
-        </template>
-        <blockquote class="blockquote mb-0 d-flex flex-column justify-content-center">
-          <b-input-group class="mb-3">
-            <template #prepend>
-              <b-input-group-text>
-                <b-icon icon="card-text" font-scale="0.8"></b-icon>
-              </b-input-group-text>
-            </template>
-            <b-form-input placeholder="yours@example.com" name="username" v-model="$v.form.username.$model" :state="validateState('username')" aria-describedby="input-1-live-feedback"></b-form-input>
-          </b-input-group>
-          <b-input-group class="mt-2">
-            <template #prepend>
-              <b-input-group-text>
-                <b-icon icon="lock" font-scale="0.8"></b-icon>
-              </b-input-group-text>
-            </template>
-            <template #append>
-              <b-input-group-text>
-                <b-icon :icon="isShowPassword ? 'eye-slash' : 'eye'" font-scale="0.8" class="cursor-pointer" @click="toggleShowPassword"></b-icon>
-              </b-input-group-text>
-            </template>
+  <b-container fluid>
+    <b-row class="min-vh-100" align-h="center" align-v="center">
+      <b-col cols="12" sm="4" xl="3">
+        <b-card header="Quote" class="login-wrp" footer-bg-variant="primary">
+          <template #header>
+            <h2 class="text-center font-weight-bold">ZeroBugs</h2>
+            <div class="text-center">Member Web</div>
+          </template>
+          <blockquote
+            class="blockquote mb-0 d-flex flex-column justify-content-center"
+          >
+            <b-input-group class="mb-3">
+              <template #prepend>
+                <b-input-group-text>
+                  <b-icon icon="card-text" font-scale="0.8"></b-icon>
+                </b-input-group-text>
+              </template>
+              <b-form-input
+                placeholder="yours@example.com"
+                name="username"
+                v-model="$v.form.username.$model"
+                :state="validateState('username')"
+                aria-describedby="input-1-live-feedback"
+              ></b-form-input>
+            </b-input-group>
+            <b-input-group class="mt-2">
+              <template #prepend>
+                <b-input-group-text>
+                  <b-icon icon="lock" font-scale="0.8"></b-icon>
+                </b-input-group-text>
+              </template>
+              <template #append>
+                <b-input-group-text>
+                  <b-icon
+                    :icon="isShowPassword ? 'eye-slash' : 'eye'"
+                    font-scale="0.8"
+                    class="cursor-pointer"
+                    @click="toggleShowPassword"
+                  ></b-icon>
+                </b-input-group-text>
+              </template>
 
-            <b-form-input placeholder="your password" :type="isShowPassword ? 'text':'password'" name="password" v-model="$v.form.password.$model" :state="validateState('password')" aria-describedby="password-feedback" v-on:keyup.enter="onSubmit"></b-form-input>
-
-          </b-input-group>
-        </blockquote>
-        <template #footer>
-          <div class="footer-wrp cursor-pointer" @click="onSubmit">
-            <div class="text-center text-light text-uppercase login-label">log in ></div>
-          </div>
-        </template>
-      </b-card>
-    </b-col>
-  </b-row>
-</b-container>
+              <b-form-input
+                placeholder="your password"
+                :type="isShowPassword ? 'text' : 'password'"
+                name="password"
+                v-model="$v.form.password.$model"
+                :state="validateState('password')"
+                aria-describedby="password-feedback"
+                v-on:keyup.enter="onSubmit"
+              ></b-form-input>
+            </b-input-group>
+          </blockquote>
+          <template #footer>
+            <div class="footer-wrp cursor-pointer" @click="onSubmit">
+              <div class="text-center text-light text-uppercase login-label">
+                log in >
+              </div>
+            </div>
+          </template>
+        </b-card>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
-import {
-  validationMixin
-} from "vuelidate";
-import {
-  required,
-} from "vuelidate/lib/validators";
+import { validationMixin } from "vuelidate";
+import { required } from "vuelidate/lib/validators";
+
+import axios from "../utils/axiosHelper";
+import { saveToken } from "../libs/token";
 
 export default {
-  name: 'Login',
+  name: "Login",
   mixins: [validationMixin],
   data() {
     return {
       isShowPassword: false,
       form: {
         username: null,
-        password: null
-      }
-    }
+        password: null,
+      },
+    };
   },
   validations: {
     form: {
       username: {
-        required
+        required,
       },
       password: {
         required,
-      }
-    }
+      },
+    },
   },
   methods: {
     toggleShowPassword() {
@@ -83,35 +104,38 @@ export default {
         return;
       }
 
-      const {
-        username,
-        password
-      } = this.form;
+      const { username, password } = this.form;
 
-      alert(JSON.stringify({
-        username,
-        password
-      }))
+      axios
+        .post("/auth/login", {
+          user: {
+            email: username,
+            password,
+          },
+        })
+        .then((res) => {
+          saveToken(res.data.token);
+          this.$router.push("/");
+        });
+
+      this.resetForm();
+    },
+    validateState(name) {
+      const { $dirty, $error } = this.$v.form[name];
+      return $dirty ? !$error : null;
+    },
+    resetForm() {
       this.form = {
         username: null,
-        password: null
+        password: null,
       };
 
       this.$nextTick(() => {
         this.$v.$reset();
       });
-
     },
-    validateState(name) {
-      const {
-        $dirty,
-        $error
-      } = this.$v.form[name];
-      return $dirty ? !$error : null;
-    },
-  }
-
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>

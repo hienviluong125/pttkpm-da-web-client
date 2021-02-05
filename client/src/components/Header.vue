@@ -29,17 +29,15 @@
               <span class="text-dark">User</span>
             </template>
             <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+            <b-dropdown-item @click="handleLogout">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
 
           <b-nav-item v-else class="ml-4" to="/login">
             <div class="text-dark">
               <b-icon icon="person" font-scale="1" variant="dark" />
-              &ensp;
-              Login
+              &ensp; Login
             </div>
           </b-nav-item>
-
         </b-navbar-nav>
       </b-collapse>
     </b-container>
@@ -47,18 +45,32 @@
 </template>
 
 <script>
+import axios from "../utils/axiosHelper";
+import { clearAllTokens } from "../libs/token";
+
 export default {
-  name: 'Header',
+  name: "Header",
   data() {
     return {
-      currentUser: null
-    }
-  }
-}
+      currentUser: null,
+    };
+  },
+  mounted() {
+    axios.get("/api/user/profile").then((res) => {
+      this.currentUser = res.data.user;
+    });
+  },
+  methods: {
+    handleLogout() {
+      clearAllTokens();
+      this.$router.push("/login");
+    },
+  },
+};
 </script>
 
 <style scoped>
-  .nav-item-text > a {
-    color: #000000;
-  }
+.nav-item-text > a {
+  color: #000000;
+}
 </style>
