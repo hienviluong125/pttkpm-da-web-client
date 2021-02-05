@@ -72,7 +72,21 @@ export default {
     BlogSection,
   },
   data() {
-    return {};
+    return {
+      isLoginSuccess: false,
+    };
+  },
+  beforeRouteEnter(_, from, next) {
+    if (from.path == "/login") {
+      return next((self) => {
+        self.$bvToast.toast("Login successfully!", {
+          title: `Notify`,
+          variant: "success",
+          solid: true,
+        });
+      });
+    }
+    next();
   },
 };
 </script>
