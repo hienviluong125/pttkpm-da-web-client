@@ -7,9 +7,13 @@
       <LandingPageSection imagePath="image/workspaces/workspace0.jpg">
         <div class="d-flex align-items-center landing-page-section mt-5">
           <div>
-            <h3 class="font-weight-bold">Welcome to the workplace of tomorrow</h3>
+            <h3 class="font-weight-bold">
+              Welcome to the workplace of tomorrow
+            </h3>
             <p class="mt-3">
-              From spaces that prioritize your health and safety to unmatched flexibility, WeWork is reimagining the workplace to give you the confidence to move forward through COVID-19 and beyond.
+              From spaces that prioritize your health and safety to unmatched
+              flexibility, WeWork is reimagining the workplace to give you the
+              confidence to move forward through COVID-19 and beyond.
             </p>
             <router-link to="/about" class="text-decoration-none">
               <div class="d-flex align-items-center">
@@ -25,7 +29,8 @@
           <div>
             <h3 class="font-weight-bold">Creating a healthier workplace</h3>
             <p class="mt-3">
-              In response to COVID-19, we are enhancing our health and safety standards for your clients’ peace of mind.
+              In response to COVID-19, we are enhancing our health and safety
+              standards for your clients’ peace of mind.
             </p>
             <router-link to="/about" class="text-decoration-none">
               <div class="d-flex align-items-center">
@@ -49,26 +54,25 @@
 </template>
 
 <script>
-import BannerCarousel from './../components/BannerCarousel';
-import LandingPageSection from './../components/LandingPageSection';
-import NavigateSection from './../components/NavigateSection';
-import MapSection from './../components/MapSection';
-import SponsorSection from './../components/SponsorSection';
-import BlogSection from './../components/BlogSection';
+import BannerCarousel from "./../components/BannerCarousel";
+import LandingPageSection from "./../components/LandingPageSection";
+import NavigateSection from "./../components/NavigateSection";
+import MapSection from "./../components/MapSection";
+import SponsorSection from "./../components/SponsorSection";
+import BlogSection from "./../components/BlogSection";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
     BannerCarousel,
     LandingPageSection,
     NavigateSection,
     MapSection,
     SponsorSection,
-    BlogSection
+    BlogSection,
   },
   data() {
-    return {
-    }
-  }
-}
+    return {};
+  },
+};
 </script>
