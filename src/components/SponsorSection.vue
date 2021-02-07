@@ -1,9 +1,9 @@
 <template>
   <b-row>
     <h3 class="mt-4">Trusted by the world’s top companies</h3>
-    <div class="">
+    <b-col cols="12">
       <p class="mt-4">From entrepreneurs to Fortune 500s, we’re listening and learning from our global community of businesses as they adapt and reinvent.</p>
-    </div>
+    </b-col>
     <b-col
       :key="index"
       v-for="(sponsorImage, index) in sponsorImageList"
