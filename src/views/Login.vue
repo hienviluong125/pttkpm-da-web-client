@@ -60,7 +60,7 @@
                 log in
               </div>
               <router-link to="/sign_up" class="text-decoration-none">
-                <div class=" mt-3 text-center w-100 fw-lighter sub-title">
+                <div class="mt-3 text-center w-100 fw-lighter sub-title">
                   Not Registed ?
                 </div>
               </router-link>
@@ -77,7 +77,7 @@ import { validationMixin } from "vuelidate";
 import { required } from "vuelidate/lib/validators";
 
 import axios from "../utils/axiosHelper";
-import { saveToken } from "../libs/token";
+import { saveToken, getToken, setUser } from "../libs/token";
 
 export default {
   name: "Login",
@@ -122,7 +122,18 @@ export default {
         })
         .then((res) => {
           saveToken(res.data.token);
-          this.$router.push("/");
+
+          axios.get("/api/user/profile", { headers: { Authorization: `Bearer ${res.data.token}` } }).then((res) => {
+            setUser(res.data.user);
+
+            let lsRedirectPath = localStorage.getItem("redirect_path");
+            if (lsRedirectPath) {
+              localStorage.removeItem("redirect_path");
+              window.location.href = lsRedirectPath;
+            } else {
+              this.$router.push("/");
+            }
+          });
         });
 
       this.resetForm();

@@ -46,7 +46,7 @@
 
 <script>
 import axios from "../utils/axiosHelper";
-import { clearAllTokens } from "../libs/token";
+import { setUser, clearAllTokens, getToken, getUser } from "../libs/token";
 
 export default {
   name: "Header",
@@ -56,11 +56,19 @@ export default {
     };
   },
   mounted() {
-    console.log({ z: this.currentPath() });
-    if (["/", "/locations", "/ideas", "/about"].includes(this.currentPath())) {
-      axios.get("/api/user/profile").then((res) => {
-        this.currentUser = res.data.user;
-      });
+    if (getUser()) {
+      this.currentUser = getUser();
+      return;
+    } else {
+      if (
+        ["/", "/locations", "/ideas", "/about"].includes(this.currentPath()) &&
+        getToken()
+      ) {
+        axios.get("/api/user/profile").then((res) => {
+          this.currentUser = res.data.user;
+          setUser(res.data.user);
+        });
+      }
     }
   },
   methods: {

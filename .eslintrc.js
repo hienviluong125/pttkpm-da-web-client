@@ -1,5 +1,6 @@
 module.exports = {
-  root: true,
+  useEslint: false,
+  root: false,
   env: {
     node: true
   },
