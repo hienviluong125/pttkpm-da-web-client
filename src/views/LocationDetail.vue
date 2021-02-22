@@ -2,14 +2,18 @@
   <b-container v-if="workspace">
     <b-row>
       <b-col cols="12" class="mt-3">
-        <router-link to="locations" class="text-primary text-decoration-none">
+        <router-link to="/locations" class="text-primary text-decoration-none">
           <b-icon icon="chevron-left" font-scale="1"></b-icon>
           Search
         </router-link>
       </b-col>
       <b-col cols="12" class="mt-3">
         <div class="d-flex justify-content-between">
-          <h1>{{ workspace.name }}</h1>
+          <div>
+            <h1 class="m-0">{{ workspace.name }}</h1>
+            <h3>{{workspace.WorkspaceType.name }}</h3>
+          </div>
+
           <div>
             <p>
               {{ workspace.address }},
@@ -67,7 +71,7 @@
               access-token="pk.eyJ1IjoiaGllbnZpbHVvbmcxMjUiLCJhIjoiY2tsZXZueGZhMGtnYjJvcG1rZno1cGlxNSJ9.jfM9Qy6sGhBQqj5mG5ySZQ"
               :map-options="{
                 style: 'mapbox://styles/mapbox/light-v10',
-                center: [-80.9852, 46.49751],
+                center: [workspace.lng, workspace.lat],
                 zoom: 18,
               }"
               :fullscreen-control="{
@@ -167,12 +171,59 @@
 
     <b-modal
       id="modal-3"
+      title="Book this workspace"
+      header-bg-variant="success"
+      header-text-variant="light"
+      hide-footer
+    >
+      <b-form @submit="onSubmitBookForm">
+        <b-form-group
+          label="Note (optional)"
+          label-for="note"
+          description="Please let us know what you want on this workspace!"
+        >
+          <b-form-input
+            id="note"
+            v-model="bookForm.note"
+            type="text"
+            placeholder="Your note"
+          ></b-form-input>
+        </b-form-group>
+
+        <b-form-group
+          label="Capacity"
+          label-for="capacity"
+          :description="`Should less than ${workspace.max_capacity} and greater than ${workspace.min_capacity}`"
+        >
+          <b-form-input
+            id="capacity"
+            v-model="bookForm.capacity"
+            type="number"
+            :min="workspace.min_capacity"
+            :max="workspace.max_capacity"
+            placeholder="Choose capacity"
+            required
+          ></b-form-input>
+        </b-form-group>
+
+        <div>
+          <label for="example-datepicker">Choose a date</label>
+          <b-form-datepicker id="example-datepicker" v-model="bookForm.date" class="mb-2"></b-form-datepicker>
+        </div>
+
+        <b-button type="submit" variant="success">Book now!</b-button>
+      </b-form>
+    </b-modal>
+
+    <b-modal
+      id="modal-4"
       title="Confirm booking"
       header-bg-variant="success"
       header-text-variant="light"
       ok-variant="success"
       cancel-variant="outline-secondary"
       ok-title="Yes, Book it!"
+      @ok="handleBook"
     >
       <p class="my-4">Are you sure want to book this workspace ?</p>
     </b-modal>
@@ -194,6 +245,11 @@ export default {
       nearbyWorkspaces: [],
       blogPagy: null,
       currentUser: null,
+      bookForm: {
+        capacity: 1,
+        note: "",
+        date: new Date(),
+      },
     };
   },
   mounted() {
@@ -207,6 +263,11 @@ export default {
         const { success, workspace, nearbyWorkspaces } = res.data;
         if (success) {
           this.workspace = workspace;
+          this.bookForm = {
+            date: new Date(),
+            capacity: this.workspace.min_capacity,
+            note: "",
+          };
           this.nearbyWorkspaces = nearbyWorkspaces;
         }
       })
@@ -228,6 +289,38 @@ export default {
   },
 
   methods: {
+    onSubmitBookForm(e) {
+      e.preventDefault();
+
+      this.$bvModal.hide("modal-3");
+      this.$bvModal.show("modal-4");
+    },
+    handleBook() {
+      axios
+        .post("/api/order/create", {
+          order: {
+            ...this.bookForm,
+            workspace_id: this.workspace.id,
+          },
+        })
+        .then((res) => {
+          if (res.data.success) {
+            this.$bvToast.toast("Workspace booked successfully! Workspace owner will contact you soon!", {
+              title: `Notify`,
+              variant: "success",
+              solid: true,
+            });
+          } else {
+            if(res.data.message) {
+              this.$bvToast.toast(res.data.message, {
+              title: `Notify`,
+              variant: "warning",
+              solid: true,
+            });
+            }
+          }
+        });
+    },
     onNagivateToLogin() {
       localStorage.setItem("redirect_path", window.location.href);
       this.$router.push("/login");
@@ -236,7 +329,7 @@ export default {
       let popup = new mapboxgl.Popup().setText(this.workspace.name);
 
       new mapboxgl.Marker()
-        .setLngLat([-80.9852, 46.49751])
+        .setLngLat([this.workspace.lng, this.workspace.lat])
         .setPopup(popup)
         .addTo(map);
     },
