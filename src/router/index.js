@@ -49,6 +49,13 @@ const routes = [
     name: "About",
     component: () => import("../views/About.vue"),
   },
+  // Partner
+  {
+    path: "/partner/booking",
+    name: "Booking",
+    component: () => import("../views/partner/Booking.vue"),
+  },
+  // End Partner
 ];
 
 const router = new VueRouter({

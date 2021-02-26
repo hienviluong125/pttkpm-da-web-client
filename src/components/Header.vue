@@ -29,6 +29,26 @@
               <span class="text-dark">User</span>
             </template>
             <b-dropdown-item href="#">Profile</b-dropdown-item>
+            <!-- Partner -->
+            <router-link to="/partner/blog" class="dropdown-item" v-if="currentUser.role == 'partner'">
+              Blogs
+            </router-link>
+            <router-link to="/partner/workspaces" class="dropdown-item" v-if="currentUser.role == 'partner'">
+              Workspaces
+            </router-link>
+            <router-link to="/partner/booking" class="dropdown-item" v-if="currentUser.role == 'partner'">
+              Workspace Bookings
+            </router-link>
+            <!-- End Partner -->
+
+            <!-- Member -->
+            <router-link to="/member/blog" class="dropdown-item" v-if="currentUser.role == 'member'">
+              Blogs
+            </router-link>
+            <router-link to="/member/booking" class="dropdown-item" v-if="currentUser.role == 'member'">
+              My Bookings
+            </router-link>
+            <!-- End Member -->
             <b-dropdown-item @click="handleLogout">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
 
