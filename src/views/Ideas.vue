@@ -90,7 +90,6 @@ export default {
     axios.get("/api/blog/hot_blogs").then((res) => {
       if (res.data.success) {
         this.blogPagy = res.data.blogPagy;
-        console.log(this.blogPagy)
       }
     });
   },

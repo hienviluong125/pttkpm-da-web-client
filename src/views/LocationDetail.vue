@@ -377,4 +377,10 @@ export default {
 .active-blog {
   max-height: 100px;
 }
+
+.workspace-images > img {
+  max-width: 1024px !important;
+  max-height: 480px !important;
+  object-fit: cover;
+}
 </style>

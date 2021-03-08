@@ -55,6 +55,21 @@ const routes = [
     name: "Booking",
     component: () => import("../views/partner/Booking.vue"),
   },
+  {
+    path: "/partner/workspace",
+    name: "WorkspaceIndex",
+    component: () => import("../views/partner/workspace/index.vue"),
+  },
+  {
+    path: "/partner/workspace/new",
+    name: "WorkspaceNew",
+    component: () => import("../views/partner/workspace/new.vue"),
+  },
+  {
+    path: "/partner/workspace/:id/edit",
+    name: "WorkspaceEdit",
+    component: () => import("../views/partner/workspace/edit.vue"),
+  },
   // End Partner
 ];
 

@@ -30,24 +30,24 @@
             </template>
             <b-dropdown-item href="#">Profile</b-dropdown-item>
             <!-- Partner -->
-            <router-link to="/partner/blog" class="dropdown-item" v-if="currentUser.role == 'partner'">
+            <b-dropdown-item @click="navigateTo('/partner/blog')" v-if="currentUser.role == 'partner'">
               Blogs
-            </router-link>
-            <router-link to="/partner/workspaces" class="dropdown-item" v-if="currentUser.role == 'partner'">
+            </b-dropdown-item>
+            <b-dropdown-item @click="navigateTo('/partner/workspace')" v-if="currentUser.role == 'partner'">
               Workspaces
-            </router-link>
-            <router-link to="/partner/booking" class="dropdown-item" v-if="currentUser.role == 'partner'">
+            </b-dropdown-item>
+            <b-dropdown-item @click="navigateTo('/partner/booking')" v-if="currentUser.role == 'partner'">
               Workspace Bookings
-            </router-link>
+            </b-dropdown-item>
             <!-- End Partner -->
 
             <!-- Member -->
-            <router-link to="/member/blog" class="dropdown-item" v-if="currentUser.role == 'member'">
+            <b-dropdown-item @click="navigateTo('/member/blog')" v-if="currentUser.role == 'member'">
               Blogs
-            </router-link>
-            <router-link to="/member/booking" class="dropdown-item" v-if="currentUser.role == 'member'">
+            </b-dropdown-item>
+            <b-dropdown-item @click="navigateTo('/member/booking')" v-if="currentUser.role == 'member'">
               My Bookings
-            </router-link>
+            </b-dropdown-item>
             <!-- End Member -->
             <b-dropdown-item @click="handleLogout">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
@@ -92,6 +92,9 @@ export default {
     }
   },
   methods: {
+    navigateTo(toUrl) {
+      this.$router.push(toUrl)
+    },
     handleLogout() {
       clearAllTokens();
       this.$router.push("/login");
