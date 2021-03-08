@@ -82,7 +82,6 @@ export default {
           const { success, orderPagy } = res.data;
           if (success) {
             this.orderPagy = orderPagy;
-            console.log(orderPagy)
           }
         })
         .catch((err) => {
