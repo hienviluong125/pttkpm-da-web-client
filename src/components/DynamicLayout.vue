@@ -8,7 +8,7 @@
 
     <!-- Client page layout  -->
     <div
-      v-if="['/', '/locations', '/ideas', '/about', '/partner'].includes(currentPath())"
+      v-if="['/', '/locations', '/ideas', '/about', '/partner', '/member'].includes(currentPath())"
       id="app"
     >
       <Header />
