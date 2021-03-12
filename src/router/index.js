@@ -71,6 +71,14 @@ const routes = [
     component: () => import("../views/partner/workspace/edit.vue"),
   },
   // End Partner
+
+  // Member
+  {
+    path: "/member/booking",
+    name: "MyBooking",
+    component: () => import("../views/member/Booking.vue"),
+  }
+  // End Member
 ];
 
 const router = new VueRouter({
