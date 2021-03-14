@@ -77,8 +77,24 @@ const routes = [
     path: "/member/booking",
     name: "MyBooking",
     component: () => import("../views/member/Booking.vue"),
-  }
+  },
   // End Member
+
+  {
+    path: "/blog/index",
+    name: "BlogIndex",
+    component: () => import("../views/blog/index.vue"),
+  },
+  {
+    path: "/blog/new",
+    name: "BlogNew",
+    component: () => import("../views/blog/new.vue"),
+  },
+  {
+    path: "/blog/:id/edit",
+    name: "BlogEdit",
+    component: () => import("../views/blog/edit.vue"),
+  },
 ];
 
 const router = new VueRouter({

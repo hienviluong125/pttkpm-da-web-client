@@ -1,6 +1,9 @@
 <template>
   <b-container class="pt-4">
     <h3 class="mb-4">Your workspaces</h3>
+    <router-link to="/partner/workspace/new">
+        <b-button size="sm" variant="primary" class="mb-3">Add new</b-button>
+      </router-link>
     <b-table
       v-if="workspacePagy"
       responsive

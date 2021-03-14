@@ -14,7 +14,7 @@
           <div class="mt-4 active-blog d-lg-flex d-none">
             <img
               class="w-50 rounded-left blog-image"
-              :src="'https://picsum.photos/500/500' + '?random=' + index"
+              :src="blog.image"
             />
             <div
               class="info w-50 rounded-right border border-left-0 p-5 d-flex flex-column justify-content-between"
@@ -33,7 +33,7 @@
           <div class="d-lg-none d-md-block d-sm-block d-xs-block">
             <img
               class="w-100 rounded-top blog-image"
-              :src="'https://picsum.photos/500/500' + '?random=' + index"
+              :src="blog.image"
             />
             <div
               class="info px-3 py-4 border-left border-right border-bottom rounded-bottom d-flex flex-column justify-content-between"
@@ -53,7 +53,7 @@
           <div>
             <img
               class="w-100 rounded-top blog-image"
-              :src="'https://picsum.photos/500/500' + '?random=' + index"
+              :src="blog.image"
             />
             <div
               class="info px-3 py-4 border-left border-right border-bottom rounded-bottom d-flex flex-column justify-content-between"

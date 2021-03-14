@@ -8,7 +8,7 @@
 
     <!-- Client page layout  -->
     <div
-      v-if="['/', '/locations', '/ideas', '/about', '/partner', '/member'].includes(currentPath())"
+      v-if="['/', '/locations', '/ideas', '/about', '/partner', '/member', '/blog'].includes(currentPath())"
       id="app"
     >
       <Header />
@@ -31,6 +31,7 @@ export default {
   },
   methods: {
     currentPath() {
+      // console.log(`/${window.location.hash.split("/")[1]}`);
       return `/${window.location.hash.split("/")[1]}`;
     },
   },
