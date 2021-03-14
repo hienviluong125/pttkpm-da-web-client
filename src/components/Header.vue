@@ -30,7 +30,7 @@
             </template>
             <b-dropdown-item href="#">Profile</b-dropdown-item>
             <!-- Partner -->
-            <b-dropdown-item @click="navigateTo('/partner/blog')" v-if="currentUser.role == 'partner'">
+            <b-dropdown-item @click="navigateTo('/blog/index')" v-if="currentUser.role == 'partner'">
               Blogs
             </b-dropdown-item>
             <b-dropdown-item @click="navigateTo('/partner/workspace')" v-if="currentUser.role == 'partner'">
@@ -42,7 +42,7 @@
             <!-- End Partner -->
 
             <!-- Member -->
-            <b-dropdown-item @click="navigateTo('/member/blog')" v-if="currentUser.role == 'member'">
+            <b-dropdown-item @click="navigateTo('/blog/index')" v-if="currentUser.role == 'member'">
               Blogs
             </b-dropdown-item>
             <b-dropdown-item @click="navigateTo('/member/booking')" v-if="currentUser.role == 'member'">

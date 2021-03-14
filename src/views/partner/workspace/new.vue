@@ -211,13 +211,19 @@ export default {
     },
     onSubmit(e) {
       e.preventDefault();
-      axios.post('/api/workspace/create', {
-        ...this.workspace
-      }).then(res => {
-        this.$router.push('/partner/workspace')
-      }).catch(err => {
-        console.log(err)
-      })
+      axios
+        .post("/api/workspace/create", {
+          ...this.workspace,
+        })
+        .then((res) => {
+          this.$router.push({
+            path: "/partner/workspace",
+            query: { success: true },
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
